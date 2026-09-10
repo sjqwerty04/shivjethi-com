@@ -16,6 +16,7 @@ interface TimelineProps {
   startDate?: string;
   sectionLabel?: string;
   headlineSuffix?: string;
+  className?: string;
 }
 
 // Default x.ai Colossus milestones as extracted from x.ai/colossus
@@ -94,6 +95,7 @@ export function ColossusTimeline({
   startDate = "2024-05-01",
   sectionLabel = "Timeline",
   headlineSuffix = "days from groundbreak",
+  className = "",
 }: TimelineProps) {
   const [activeIndex, setActiveIndex] = useState(milestones.length - 1);
   const activeMilestone = milestones[activeIndex] || milestones[0];
@@ -151,7 +153,7 @@ export function ColossusTimeline({
     milestones.length > 1 ? formatDateLabel(milestones[milestones.length - 1].date) : "";
 
   return (
-    <section className="relative w-full py-16 sm:py-24 border-t border-white/[0.06]">
+    <section className={`relative w-full ${className}`}>
       <div className="mx-auto w-full px-4 lg:px-6 xl:max-w-7xl">
         {/* Header */}
         <div className="mb-12 max-w-2xl">

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shiv Jethi — Portfolio",
-  description: "Portfolio of Shiv Jethi (shivjethi.com) featuring interactive engineering timelines and systems.",
+  title: "Timeline",
+  description: "Interactive timeline",
 };
 
 export default function RootLayout({
