@@ -11,7 +11,10 @@ export interface TimelineMilestone {
   title: string;
   description: string;
   company: string;
+  companyAbout: string;
   logoSrc: string;
+  logoSrcs?: string[];
+  logoAlts?: string[];
   tag?: string;
 }
 
@@ -85,17 +88,24 @@ export function ColossusTimeline({
     setActiveIndex(Math.max(0, Math.min(milestones.length - 1, index)));
   };
 
-  const formatDateLabel = (dateStr: string) =>
-    parseLocalDate(dateStr).toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric",
-    });
+  const MONTHS_SHORT = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
+  const MONTHS_LONG = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
 
-  const formatActiveDate = (dateStr: string) =>
-    parseLocalDate(dateStr).toLocaleDateString("en-US", {
-      month: "long",
-      year: "numeric",
-    });
+  const formatDateLabel = (dateStr: string) => {
+    const d = parseLocalDate(dateStr);
+    return `${MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`;
+  };
+
+  const formatActiveDate = (dateStr: string) => {
+    const d = parseLocalDate(dateStr);
+    return `${MONTHS_LONG[d.getMonth()]} ${d.getFullYear()}`;
+  };
 
   const firstDateLabel = milestones[0] ? formatDateLabel(milestones[0].date) : "";
   const lastDateLabel =
@@ -166,7 +176,7 @@ export function ColossusTimeline({
           <span>{lastDateLabel}</span>
         </div>
 
-        <div className="mx-auto mt-10 min-h-[200px] max-w-2xl text-center">
+        <div className="mx-auto mt-10 min-h-[240px] max-w-2xl text-center">
           <motion.div
             key={activeMilestone.title}
             initial={{ opacity: 0, y: 6 }}
@@ -174,19 +184,32 @@ export function ColossusTimeline({
             transition={{ duration: 0.18, ease: "easeOut" }}
             className="flex flex-col items-center"
           >
-              <img
-                src={activeMilestone.logoSrc}
-                alt=""
-                width={48}
-                height={48}
-                className="h-10 w-10 sm:h-12 sm:w-12 object-contain opacity-90"
-              />
+              <div className="flex items-center justify-center gap-3">
+                {(activeMilestone.logoSrcs ?? [activeMilestone.logoSrc]).map(
+                  (src, i) => (
+                    <img
+                      key={`${src}-${i}`}
+                      src={src}
+                      alt={
+                        activeMilestone.logoAlts?.[i] ??
+                        activeMilestone.company
+                      }
+                      width={48}
+                      height={48}
+                      className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
+                    />
+                  ),
+                )}
+              </div>
               <div className="text-white/40 text-sm font-medium tracking-wide mt-4">
                 {formatActiveDate(activeMilestone.date)}
               </div>
               <h3 className="mt-3 text-balance text-2xl font-medium tracking-tight text-white sm:text-3xl">
                 {activeMilestone.title}
               </h3>
+              <p className="text-white/45 mt-3 text-sm leading-6 max-w-xl mx-auto">
+                {activeMilestone.companyAbout}
+              </p>
               <p className="text-white/60 mt-3 text-base leading-7 max-w-xl mx-auto">
                 {activeMilestone.description}
               </p>
