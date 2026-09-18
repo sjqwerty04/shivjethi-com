@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Timeline",
-  description: "Interactive timeline",
+  title: "I build things and sell them",
+  description:
+    "AI products sold into the largest supply chains on earth. From a Jaipur classroom to shipping agents. Scrub the days.",
 };
 
 export default function RootLayout({
