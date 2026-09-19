@@ -120,7 +120,7 @@ export function ColossusTimeline({
       <div className="mx-auto w-full px-4 lg:px-6 xl:max-w-7xl">
         <div className="mb-12 max-w-3xl">
           <p className="text-white/40 text-sm font-medium tracking-wide">{sectionLabel}</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <h2 className="mt-4 min-h-[4.75rem] sm:min-h-[5.5rem] lg:min-h-[6.25rem] text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <AutoWidth>
               <NumberFlow
                 value={activeMilestone.headlineValue}
@@ -176,13 +176,13 @@ export function ColossusTimeline({
           <span>{lastDateLabel}</span>
         </div>
 
-        <div className="mx-auto mt-10 min-h-[240px] max-w-2xl text-center">
+        <div className="mx-auto mt-10 h-[22rem] sm:h-[24rem] max-w-2xl overflow-hidden text-center">
           <motion.div
             key={activeMilestone.title}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="flex flex-col items-center"
+            className="flex h-full flex-col items-center"
           >
               <div className="flex items-center justify-center gap-3">
                 {(activeMilestone.logoSrcs ?? [activeMilestone.logoSrc]).map(
